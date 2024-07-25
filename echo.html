@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aula 15 WebSockets</title>
+
+  </head>
+  <body>
+    Echo Client</br>
+
+    <input id="msg" type="text" />
+    <button id="echo">Enviar</button>
+    <button id="close">Fechar</button>
+    <ul id="area"></ul>
+  </body>
+    <script>
+    var area = document.getElementById("area");
+    var msg = document.getElementById("msg");
+
+    //Definição do path utilizado pelo ServerEndpoint
+    var ws = new WebSocket("ws://localhost:8080/echo");
+
+    ws.onopen = function(event) {
+        console.log(event);
+    };
+
+    ws.onclose = function(event) {
+        console.log(event);
+    };
+
+    ws.onmessage = function(event) {
+        console.log(event);
+        var entry = document.createElement("li");
+        entry.textContent = event.data;
+        area.appendChild(entry);
+    }
+
+    ws.onerror = function(event) {
+        console.log(event);
+    }
+
+    document.getElementById("echo").onclick = function() {
+        ws.send(msg.value);
+    };
+
+    document.getElementById("close").onclick = function() {
+        ws.close();
+    };
+    </script>
+</html>
