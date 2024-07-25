@@ -11,7 +11,6 @@ async def http_handler(path, headers):
     """Route HTTP requests to their handlers"""
     from http import HTTPStatus
     from websockets.http import Headers
-    print(path)
     if path == '/ui-chat':
         # Entregar para o navegador o conteúdo do arquivo chat.html,
         # que corresponde ao cliente chat implementado pelo webservice
@@ -43,7 +42,6 @@ async def chat(websocket, sessions={}):
     """Chyaaat WebSocket handler"""
     remote = websocket.remote_address
     sessions[remote] = websocket
-    print(sessions.values())
     try:
         async for message in websocket:
             for socket in sessions.values():
